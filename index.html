@@ -1,212 +1,261 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <title>Unlock Premium Vault</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon AI Market – Premium Tools at Lowest Prices</title>
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: #f8fafc;
-      height: 100vh;
-      overflow: hidden;
-    }
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-    .loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #0f172a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-    .loader:after {
-      content: "";
-      width: 40px;
-      height: 40px;
-      border: 5px solid #00bfff;
-      border-top-color: transparent;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
+<!-- Icons -->
+<script defer src="https://cdn.jsdelivr.net/npm/lucide/dist/lucide.min.js"></script>
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+<style>
+body{
+  background:radial-gradient(circle at top,#020617,#000);
+  color:#e5e7eb;
+  font-family:'Inter',sans-serif;
+}
+.font-grotesk{font-family:'Space Grotesk',sans-serif}
 
-    .banner {
-      background: #facc15;
-      color: #111827;
-      padding: 10px 20px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 16px;
-    }
+.glass{
+  background:rgba(2,6,23,.75);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(34,211,238,.25);
+}
+.neon-text{ text-shadow:0 0 18px rgba(34,211,238,.45); }
+.neon-glow{ box-shadow:0 0 26px rgba(34,211,238,.35); }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 40px 30px;
-      border-radius: 20px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      animation: fadeIn 1s ease-in-out;
-      margin: 20px;
-    }
-
-    h1 {
-      font-size: 36px;
-      margin-bottom: 20px;
-      font-weight: 700;
-    }
-
-    p {
-      font-size: 18px;
-      margin-bottom: 20px;
-      color: #cbd5e1;
-    }
-
-    a button {
-      padding: 15px 40px;
-      font-size: 18px;
-      font-weight: 600;
-      background: linear-gradient(to right, #00bfff, #009acd);
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(0, 191, 255, 0.4);
-      transition: all 0.3s ease;
-    }
-
-    a button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(0, 191, 255, 0.6);
-    }
-
-    .testimonials {
-      margin-top: 30px;
-      font-style: italic;
-      font-size: 16px;
-      color: #f1f5f9;
-      height: 30px;
-    }
-
-    .countdown {
-      font-size: 18px;
-      margin-top: 20px;
-      font-weight: bold;
-      color: #22d3ee;
-    }
-
-    .toggle-mode {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      background: #334155;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .light-mode {
-      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-      color: #1e293b;
-    }
-
-    .light-mode .container {
-      background: rgba(255,255,255,0.8);
-      color: #1e293b;
-    }
-
-    .light-mode .toggle-mode {
-      background: #e2e8f0;
-      color: #0f172a;
-    }
-  </style>
+#purchase-modal{
+  position:fixed; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(2,6,23,.8);
+  backdrop-filter:blur(10px);
+  opacity:0; visibility:hidden;
+  transition:.25s ease;
+  z-index:50;
+}
+#purchase-modal.is-open{ opacity:1; visibility:visible; }
+</style>
 </head>
-<body>
-  <div class="loader" id="loader"></div>
-  <div class="banner">🚨 Limited-Time Offer! Get Premium Access Now!</div>
-  <div class="toggle-mode" onclick="toggleMode()">Toggle Mode</div>
-  <div class="container">
-    <h1>🎁 Unlock the Premium Vault</h1>
-    <p>Click below to get instant access via our Telegram bot</p>
-    <a href="https://t.me/thepremiumvaultboostbot?start=fromwebsite" target="_blank">
-      <button>Get Access</button>
-    </a>
-    <div class="countdown" id="countdown"></div>
-    <div class="testimonials" id="testimonial"></div>
+
+<body class="antialiased">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-30 bg-black/40 backdrop-blur border-b border-cyan-400/10">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="font-grotesk text-xl font-bold">
+      <span class="text-cyan-400">NEON</span> AI
+    </div>
   </div>
+</header>
 
-  <script>
-    // Loader
-    window.onload = function() {
-      document.getElementById("loader").style.display = "none";
-    };
+<!-- HERO -->
+<section class="text-center py-24 px-6">
+  <h1 class="text-5xl md:text-6xl font-grotesk font-extrabold">
+    <span class="block">Premium Tools</span>
+    <span class="block bg-gradient-to-r from-cyan-400 to-cyan-300 text-transparent bg-clip-text neon-text">
+      at Lowest Prices
+    </span>
+  </h1>
+  <p class="mt-6 text-slate-400 max-w-2xl mx-auto">
+    Official AI subscriptions for creators, developers & agencies — instant delivery with proof.
+  </p>
+</section>
 
-    // Countdown Timer
-    let targetTime = new Date().getTime() + (2 * 60 * 60 * 1000); // 2 hours from now
-    let countdownEl = document.getElementById("countdown");
-    setInterval(() => {
-      let now = new Date().getTime();
-      let distance = targetTime - now;
-      if (distance > 0) {
-        let h = Math.floor(distance / (1000 * 60 * 60));
-        let m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        let s = Math.floor((distance % (1000 * 60)) / 1000);
-        countdownEl.innerHTML = `Offer ends in: ${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-      } else {
-        countdownEl.innerHTML = "Offer expired!";
-      }
-    }, 1000);
+<!-- DEALS -->
+<section id="deals" class="pb-24 px-6">
+  <div id="product-list"
+       class="grid gap-8 max-w-6xl mx-auto md:grid-cols-2 lg:grid-cols-3">
+  </div>
+</section>
 
-    // Testimonials Carousel
-    const testimonials = [
-      "🔥 'This vault is game-changing!' – Ayan",
-      "⭐ 'Best Telegram unlock I've seen!' – Riya",
-      "🚀 'Premium content really delivers value.' – Rohit"
-    ];
-    let tIndex = 0;
-    setInterval(() => {
-      document.getElementById("testimonial").innerText = testimonials[tIndex];
-      tIndex = (tIndex + 1) % testimonials.length;
-    }, 3000);
+<!-- MODAL -->
+<div id="purchase-modal">
+  <div class="glass rounded-2xl p-8 w-full max-w-md relative">
 
-    // Toggle Dark/Light Mode
-    function toggleMode() {
-      document.body.classList.toggle("light-mode");
-    }
-  </script>
+    <button id="close-modal" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+      ✕
+    </button>
+
+    <h2 id="modal-title" class="text-2xl font-grotesk font-bold mb-1"></h2>
+    <p id="modal-price" class="text-3xl font-extrabold text-cyan-400 neon-text mb-4"></p>
+
+    <!-- FEATURES -->
+    <ul id="modal-features" class="text-sm text-slate-300 space-y-2 mb-5"></ul>
+
+    <!-- COUPON -->
+    <div class="mb-4">
+      <label class="text-xs text-slate-400">Coupon Code</label>
+      <div class="flex gap-2 mt-1">
+        <input id="coupon-input"
+               class="flex-grow p-2 rounded bg-black/40 border border-cyan-400/30 text-white uppercase"
+               placeholder="Enter Code">
+        <button id="apply-coupon"
+                class="px-4 bg-cyan-400 text-black rounded font-semibold">
+          Apply
+        </button>
+      </div>
+      <p id="coupon-msg" class="text-xs mt-1"></p>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="space-y-3">
+      <a id="buy-whatsapp" target="_blank"
+         class="block text-center bg-green-500 py-3 rounded-lg font-bold text-white">
+         Continue on WhatsApp
+      </a>
+      <a id="buy-telegram" target="_blank"
+         class="block text-center bg-sky-500 py-3 rounded-lg font-bold text-white">
+         Contact on Telegram
+      </a>
+      <a id="buy-instagram" target="_blank"
+         class="block text-center bg-gradient-to-r from-purple-500 to-pink-500 py-3 rounded-lg font-bold text-white">
+         DM on Instagram
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="border-t border-cyan-400/10 py-6 text-center text-slate-500 text-sm">
+© 2025 Neon AI Market · Independent Digital Platform
+</footer>
+
+<!-- SCRIPT -->
+<script>
+/* ================= DATA ================= */
+const PRODUCTS = [
+  {
+    id: "chatgpt",
+    name: "ChatGPT Business",
+    price: 499,
+    features: [
+      "GPT-5 Pro reasoning",
+      "Unlimited messages",
+      "Faster responses",
+      "Official access",
+      "Max context & memory"
+    ]
+  },
+  {
+    id: "elevenlabs",
+    name: "ElevenLabs (3 Months)",
+    price: 1399,
+    features: [
+      "Natural AI voices",
+      "Voice cloning",
+      "High-quality audio",
+      "Commercial usage",
+      "API access"
+    ]
+  },
+  {
+    id: "veo",
+    name: "VEO 3.1 Ultra",
+    price: 1699,
+    features: [
+      "Unlimited video generation",
+      "No watermark",
+      "Fast rendering",
+      "Commercial rights",
+      "Cloud storage"
+    ]
+  }
+];
+
+const COUPON_CODE = "ADI99";
+const DISCOUNT = 700;
+
+/* ================= HELPERS ================= */
+const qs = s => document.querySelector(s);
+const modal = qs("#purchase-modal");
+
+let currentPlan = null;
+let finalPrice = 0;
+
+/* ================= RENDER PRODUCTS ================= */
+function renderProducts(){
+  qs("#product-list").innerHTML = PRODUCTS.map(p => `
+    <div class="glass rounded-2xl p-6 hover:neon-glow transition">
+      <h3 class="font-grotesk text-xl font-bold mb-2">${p.name}</h3>
+      <p class="text-3xl text-cyan-400 neon-text font-extrabold mb-4">₹${p.price}</p>
+
+      <ul class="text-sm text-slate-300 space-y-2 mb-6">
+        ${p.features.map(f => `<li>✔ ${f}</li>`).join("")}
+      </ul>
+
+      <button data-plan="${p.id}"
+              class="w-full bg-cyan-400 text-black py-3 rounded-lg font-bold">
+        Get ${p.name}
+      </button>
+    </div>
+  `).join("");
+}
+renderProducts();
+
+/* ================= OPEN MODAL ================= */
+document.addEventListener("click", e => {
+  const btn = e.target.closest("button[data-plan]");
+  if(!btn) return;
+
+  currentPlan = PRODUCTS.find(p => p.id === btn.dataset.plan);
+  finalPrice = currentPlan.price;
+
+  qs("#modal-title").innerText = currentPlan.name;
+  qs("#modal-price").innerText = "₹" + finalPrice;
+
+  qs("#modal-features").innerHTML =
+    currentPlan.features.map(f => `<li>✔ ${f}</li>`).join("");
+
+  qs("#coupon-input").value = "";
+  qs("#coupon-msg").innerText = "";
+
+  updateLinks(false);
+  modal.classList.add("is-open");
+});
+
+/* ================= CLOSE MODAL ================= */
+qs("#close-modal").onclick = () => modal.classList.remove("is-open");
+
+/* ================= COUPON ================= */
+qs("#apply-coupon").onclick = () => {
+  const code = qs("#coupon-input").value.trim().toUpperCase();
+  if(code === COUPON_CODE){
+    finalPrice = currentPlan.price - DISCOUNT;
+    qs("#modal-price").innerText = "₹" + finalPrice;
+    qs("#coupon-msg").innerText = "Coupon applied successfully!";
+    qs("#coupon-msg").className = "text-xs mt-1 text-green-400";
+    updateLinks(true);
+  } else {
+    qs("#coupon-msg").innerText = "Invalid coupon code";
+    qs("#coupon-msg").className = "text-xs mt-1 text-red-400";
+  }
+};
+
+/* ================= LINKS ================= */
+function updateLinks(coupon){
+  const msg =
+    `Hi! I want to buy ${currentPlan.name} for ₹${finalPrice}` +
+    (coupon ? " (Coupon applied)" : "");
+
+  qs("#buy-whatsapp").href =
+    `https://wa.me/?text=${encodeURIComponent(msg)}`;
+
+  qs("#buy-telegram").href =
+    `https://t.me/share/url?text=${encodeURIComponent(msg)}`;
+
+  qs("#buy-instagram").href =
+    `https://instagram.com/`;
+}
+</script>
+
 </body>
 </html>
