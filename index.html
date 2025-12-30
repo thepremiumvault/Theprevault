@@ -55,8 +55,8 @@ body{
       <span class="text-cyan-400">CHEAP</span> AI
     </div>
     <nav class="hidden md:flex gap-6 text-sm font-medium text-slate-300">
-      <a href="#process" class="hover:text-cyan-400 transition">How it Works</a>
       <a href="#deals" class="hover:text-cyan-400 transition">Deals</a>
+      <a href="#process" class="hover:text-cyan-400 transition">How it Works</a>
       <a href="#faq" class="hover:text-cyan-400 transition">FAQ</a>
     </nav>
   </div>
@@ -74,7 +74,15 @@ body{
   </p>
 </section>
 
-<section id="process" class="py-12 px-6">
+<section id="deals" class="py-12 px-6">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-grotesk font-bold text-white">Trending <span class="text-cyan-400">Deals</span></h2>
+  </div>
+  <div id="product-list" class="grid gap-8 max-w-6xl mx-auto md:grid-cols-2 lg:grid-cols-3">
+    </div>
+</section>
+
+<section id="process" class="py-12 px-6 bg-cyan-900/5">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-12">
       <h2 class="text-3xl font-grotesk font-bold text-white">Simple <span class="text-cyan-400">3-Step</span> Process</h2>
@@ -115,15 +123,7 @@ body{
   </div>
 </section>
 
-<section id="deals" class="py-12 px-6">
-  <div class="text-center mb-12">
-    <h2 class="text-3xl font-grotesk font-bold text-white">Trending <span class="text-cyan-400">Deals</span></h2>
-  </div>
-  <div id="product-list" class="grid gap-8 max-w-6xl mx-auto md:grid-cols-2 lg:grid-cols-3">
-    </div>
-</section>
-
-<section id="faq" class="py-16 px-6 bg-cyan-900/5">
+<section id="faq" class="py-16 px-6">
   <div class="max-w-5xl mx-auto">
     <div class="text-center mb-12">
       <h2 class="text-3xl font-grotesk font-bold text-white">Frequently Asked <span class="text-cyan-400">Questions</span></h2>
@@ -228,12 +228,6 @@ const PRODUCTS = [
     name: "VEO 3.1 Ultra",
     price: 1699,
     features: ["Unlimited video generation", "No watermark", "Fast rendering", "Commercial rights", "Cloud storage"]
-  },
-  {
-    id: "midjourney",
-    name: "Midjourney Pro",
-    price: 699,
-    features: ["Fast GPU time", "Stealth mode", "Commercial rights", "Private gallery", "Concurrent jobs"]
   }
 ];
 
@@ -312,10 +306,9 @@ function updateLinks(coupon){
   
   qs("#buy-whatsapp").href = `https://wa.me/919643370119?text=${encodeURIComponent(msg)}`;
   qs("#buy-telegram").href = `https://t.me/Cheapaistore`; 
-  // qs("#buy-instagram").href = `https://instagram.com/power_boy0786`; // Removed from modal, added generic contact if needed
 }
 </script>
 
 </body>
-                                                                       </html>
-      
+                                                                        </html>
+                                                                        
